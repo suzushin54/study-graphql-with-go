@@ -13,7 +13,7 @@ type issueService struct {
 	exec boil.ContextExecutor
 }
 
-func (i *issueService) GetIssueByNumber(ctx context.Context, repositoryID string, number int) (*model.Issue, error) {
+func (i *issueService) GetIssueByRepositoryID(ctx context.Context, repositoryID string, number int) (*model.Issue, error) {
 	issue, err := db.Issues(
 		qm.Select(
 			db.IssueColumns.ID,

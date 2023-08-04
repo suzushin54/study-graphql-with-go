@@ -8,4 +8,5 @@ import "github.com/suzushin54/study-graphql-with-go/graph/services"
 
 type Resolver struct {
 	Srv services.Services
+	*Loaders
 }

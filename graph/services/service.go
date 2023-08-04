@@ -22,6 +22,7 @@ type services struct {
 type UserService interface {
 	GetUserByID(ctx context.Context, id string) (*model.User, error)
 	GetUserByName(ctx context.Context, name string) (*model.User, error)
+	ListUsersByIDs(ctx context.Context, ids []string) ([]*model.User, error)
 }
 
 type RepositoryService interface {
@@ -29,7 +30,7 @@ type RepositoryService interface {
 }
 
 type IssueService interface {
-	GetIssueByNumber(ctx context.Context, repositoryID string, number int) (*model.Issue, error)
+	GetIssueByRepositoryID(ctx context.Context, repositoryID string, number int) (*model.Issue, error)
 }
 
 func NewServices(exec boil.ContextExecutor) Services {
