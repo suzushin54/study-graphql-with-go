@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/suzushin54/study-graphql-with-go/graph/services"
+	"github.com/suzushin54/study-graphql-with-go/middlewares/auth"
 	"log"
 	"net/http"
 	"os"
@@ -34,12 +35,19 @@ func main() {
 
 	service := services.NewServices(db)
 
-	srv := handler.NewDefaultServer(internal.NewExecutableSchema(internal.Config{Resolvers: &graph.Resolver{
-		Srv: service,
-	}}))
+	srv := handler.NewDefaultServer(
+		internal.NewExecutableSchema(
+			internal.Config{
+				Resolvers: &graph.Resolver{
+					Srv: service,
+				},
+				Directives: graph.Directive,
+			},
+		),
+	)
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	http.Handle("/query", srv)
+	http.Handle("/query", auth.Auth(srv))
 
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))

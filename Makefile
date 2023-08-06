@@ -7,8 +7,8 @@ install-tools:
 	go install github.com/volatiletech/sqlboiler/v4@latest
 	go install github.com/volatiletech/sqlboiler/v4/drivers/sqlboiler-sqlite3@latest
 
-## run: Run the server
-run:
+## start: Run the server
+start:
 	go run ./server.go
 
 ## gen: Generate Go code from GraphQL schema
